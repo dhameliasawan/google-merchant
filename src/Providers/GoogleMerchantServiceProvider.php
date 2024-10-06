@@ -11,7 +11,7 @@ class GoogleMerchantServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         // Load configuration file
         $this->mergeConfigFrom(__DIR__ . "/config/google-merchant.php", "google-merchant");
@@ -22,8 +22,9 @@ class GoogleMerchantServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
+        $this->mergeConfigFrom(__DIR__ . "/../config/google-merchant.php", "google-merchant");
         // Publish the configuration file
         $this->publishes([
             __DIR__ . "/config/google-merchant.php" => config_path("google-merchant.php"),
