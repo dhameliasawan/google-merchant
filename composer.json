@@ -1,5 +1,5 @@
 {
-  "name": "sawandhamelia/google-merchant",
+  "name": "dhameliasawan/google-merchant",
   "description": "A Laravel project integrated with Google Merchant for product processing.",
   "autoload": {
     "psr-4": {
