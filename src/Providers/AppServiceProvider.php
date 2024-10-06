@@ -13,13 +13,12 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @return void
-     * @throws BindingResolutionException
      */
-    public function boot()
+    public function boot(): void
     {
         // Load migrations and factories from the package
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->app->make(Factory::class)->load(__DIR__ . '/../database/factories');
+        $this->loadFactoriesFrom(__DIR__ . '/../database/factories');
     }
 
     /**
@@ -27,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         // Register the Google Merchant service provider
         $this->app->register(GoogleMerchantServiceProvider::class);
