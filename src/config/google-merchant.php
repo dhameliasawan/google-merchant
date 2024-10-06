@@ -12,7 +12,7 @@ return [
     */
     "merchant_id" => env("GOOGLE_MERCHANT_ID"),
     "api_key" => env("GOOGLE_MERCHANT_API_KEY"),
-    "oauth_credentials_path" => env("GOOGLE_OAUTH_CREDENTIALS_PATH"),
+    "oauth_credentials_path" => env("GOOGLE_OAUTH_CREDENTIALS_PATH", public_path("google/gajashis-27411e207dc2.json")), // Default to public/google/credentials.json if not set
 
     /*
     |--------------------------------------------------------------------------
