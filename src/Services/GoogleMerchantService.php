@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Http;
 
 class GoogleMerchantService extends BaseService
 {
-    protected Client $client;
-    protected Content $contentService;
     protected string $merchantId;
 
     /**
@@ -109,6 +107,4 @@ class GoogleMerchantService extends BaseService
 
         return $token['access_token'];
     }
-
-
 }
