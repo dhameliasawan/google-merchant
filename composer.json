@@ -1,7 +1,6 @@
 {
   "name": "sawandhamelia/google-merchant",
   "description": "A Laravel project integrated with Google Merchant for product processing.",
-  "type": "library",
   "autoload": {
     "psr-4": {
       "GoogleMerchant\\": "src/"
