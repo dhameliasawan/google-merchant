@@ -33,7 +33,9 @@ class GoogleMerchantService extends BaseService
             "https://www.googleapis.com/auth/content",
             public_path(config("google-merchant.oauth_credentials_path"))  // Path to your service account file
         );
-        $this->merchantId = config("google-merchant.merchant_id"); // Get Merchant ID from config
+
+        // Get Merchant ID from config
+        $this->merchantId = config("google-merchant.merchant_id");
     }
 
     /**
@@ -45,6 +47,7 @@ class GoogleMerchantService extends BaseService
     public function addProduct(array $productData): JsonResponse
     {
         try {
+            // Send a POST request to add a product
             $response = Http::withToken($this->getAccessToken()) // Get OAuth token
             ->withOptions([
                 "verify" => false, // Disable SSL certificate verification
@@ -78,8 +81,10 @@ class GoogleMerchantService extends BaseService
                 ]
             );
 
-            return $response->json(); // Return response in JSON for
+            // Return the response in JSON format
+            return $response->json();
         } catch (\Exception $e) {
+            // Handle exceptions and return error message
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -94,6 +99,7 @@ class GoogleMerchantService extends BaseService
     public function updateProduct(string $productId, array $productData): JsonResponse
     {
         try {
+            // Send a PUT request to update the product
             $response = Http::withToken($this->getAccessToken()) // Get OAuth token
             ->withOptions([
                 "verify" => false, // Disable SSL certificate verification
@@ -127,13 +133,21 @@ class GoogleMerchantService extends BaseService
                 ]
             );
 
-            return $response->json(); // Return response in JSON
+            // Return the response in JSON format
+            return $response->json();
         } catch (\Exception $e) {
+            // Handle exceptions and return error message
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-    protected function getAccessToken()
+    /**
+     * Get OAuth access token.
+     *
+     * @return string The access token.
+     * @throws Exception If unable to fetch access token.
+     */
+    protected function getAccessToken(): string
     {
         // Create a Guzzle HTTP client with OAuth token middleware
         $middleware = new AuthTokenMiddleware($this->credentials);
