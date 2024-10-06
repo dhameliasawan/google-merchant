@@ -13,12 +13,13 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @return void
+     * @throws BindingResolutionException
      */
     public function boot(): void
     {
         // Load migrations and factories from the package
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->loadFactoriesFrom(__DIR__ . '/../database/factories');
+        $this->app->make(Factory::class)->load(__DIR__ . '/../database/factories');
     }
 
     /**

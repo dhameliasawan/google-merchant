@@ -3,6 +3,7 @@
   "description": "A Laravel project integrated with Google Merchant for product processing.",
   "autoload": {
     "psr-4": {
+      "App\\": "src/",
       "GoogleMerchant\\": "src/"
     },
     "classmap": [
