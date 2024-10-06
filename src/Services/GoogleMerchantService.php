@@ -84,6 +84,55 @@ class GoogleMerchantService extends BaseService
         }
     }
 
+    /**
+     * Update a product in Google Merchant.
+     *
+     * @param string $productId The ID of the product to be updated.
+     * @param array $productData The product data to be updated.
+     * @return JsonResponse The updated product or an error response.
+     */
+    public function updateProduct(string $productId, array $productData): JsonResponse
+    {
+        try {
+            $response = Http::withToken($this->getAccessToken()) // Get OAuth token
+            ->withOptions([
+                "verify" => false, // Disable SSL certificate verification
+            ])->put("https://content.googleapis.com/content/v2.1/{$this->merchantId}/products/{$productId}", [
+                    "offerId" => $productData["offerId"],
+                    "title" => $productData["title"],
+                    "description" => $productData["description"],
+                    "link" => $productData["link"],
+                    "imageLink" => $productData["imageLink"],
+                    "contentLanguage" => $productData["contentLanguage"],
+                    "targetCountry" => $productData["targetCountry"],
+                    "channel" => $productData["channel"],
+                    "availability" => $productData["availability"],
+                    "price" => [
+                        "value" => $productData["price"]["value"],
+                        "currency" => $productData["price"]["currency"],
+                    ],
+                    "shipping" => [
+                        [
+                            "country" => $productData["shipping"][0]["country"],
+                            "price" => [
+                                "value" => $productData["shipping"][0]["price"]["value"],
+                                "currency" => $productData["shipping"][0]["price"]["currency"],
+                            ],
+                        ],
+                    ],
+                    "condition" => $productData["condition"],
+                    "gtin" => $productData["gtin"],
+                    "brand" => $productData["brand"],
+                    "mpn" => $productData["mpn"],
+                ]
+            );
+
+            return $response->json(); // Return response in JSON
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     protected function getAccessToken()
     {
         // Create a Guzzle HTTP client with OAuth token middleware
