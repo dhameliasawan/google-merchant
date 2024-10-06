@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
         // Load migrations and factories from the package
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->app->make(Factory::class)->load(__DIR__ . '/../database/factories');
+        $this->mergeConfigFrom(__DIR__ . "/../config/google-merchant.php", "google-merchant");
     }
 
     /**
